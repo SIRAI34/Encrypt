@@ -1,0 +1,22 @@
+from cryptography.fernet import Fernet
+
+# Membuat kunci enkripsi
+key = Fernet.generate_key()
+cipher = Fernet(key)
+
+# Menyimpan kunci enkripsi ke file agar dapat digunakan untuk dekripsi nanti
+with open('filekey.key', 'wb') as key_file:
+    key_file.write(key)
+
+# Membaca file Python yang ingin dienkripsi
+with open('script.py', 'rb') as file:
+    file_data = file.read()
+
+# Mengenkripsi data file
+encrypted_data = cipher.encrypt(file_data)
+
+# Menyimpan file yang telah dienkripsi
+with open('encrypted_script.py', 'wb') as encrypted_file:
+    encrypted_file.write(encrypted_data)
+
+print("File berhasil dienkripsi.")
